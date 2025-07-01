@@ -1,0 +1,14 @@
+@import 'bootstrap/scss/bootstrap';
+
+:root {
+  --color-background-night: #000000;
+  --color-background-day: #fff;
+}
+
+body.day-theme {
+  background-color: var(--color-background-day);
+}
+
+body.night-theme {
+  background-color: var(--color-background-night);
+}

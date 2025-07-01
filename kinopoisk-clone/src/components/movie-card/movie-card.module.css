@@ -1,0 +1,125 @@
+:root {
+  --color-accent: #00A340;
+  --color-accent-hover: #048638;
+  --color-accent-active: #036129;
+  --color-white: #ffff;
+  --color-black: #000;
+  --color-grey: #AFB2B6;
+}
+
+.card {
+  position: relative;
+}
+
+.imgContainer {
+  width: 100%;
+  max-width: 16.625rem;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1.25rem;
+}
+
+.img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+.content {
+  padding: 1.125rem 0;
+}
+
+.rating {
+  position: absolute;
+  left: 1.125rem;
+  top: 1.125rem;
+  padding: 0.125rem 0.875rem;
+  background-color: var(--color-accent);
+  border-radius: 0.375rem;
+  font-family: 'Exo 2', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5rem;
+  color: var(--color-white);
+}
+
+.description {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  font-family: 'Exo 2', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5rem;
+  color: var(--color-black);
+
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
+.release {
+  font-family: 'Exo 2', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.5rem;
+  color: var(--color-black);
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  display: inline-block;
+}
+
+.more {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.genres {
+  font-family: 'Exo 2', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5rem;
+  color: var(--color-grey);
+
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
+.button {
+  text-decoration: none;
+  padding: 0.25rem 0.875rem;
+  background-color: var(--color-accent);
+  border-radius: 0.375rem;
+  font-family: 'Exo 2', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.125rem;
+  color: var(--color-white);
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.button:hover {
+  background-color: var(--color-accent-hover);
+}
+
+.button:active {
+  background-color: var(--color-accent-active);
+  transform: scale(0.98)
+}

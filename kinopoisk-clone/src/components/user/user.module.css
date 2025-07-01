@@ -1,0 +1,48 @@
+:root {
+  --color-white: #ffff;
+  --color-accent: #7B61FF;
+}
+
+.btn {
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+
+  cursor: pointer;
+
+  width: auto;
+  height: auto;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  transition: transform 0.2s ease-in-out;
+}
+
+.btn:hover {
+  transform: scale(1.02);
+}
+
+.abbreviated {
+  font-family: 'Exo 2', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.5rem;
+  color: var(--color-white);
+
+  padding: 1rem;
+  background-color: var(--color-accent);
+  border-radius: 0.625rem;
+  margin-right: 1.25rem;
+}
+
+.user {
+  font-family: 'Exo 2', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5rem;
+  color: var(--color-white);
+}
