@@ -1,29 +1,26 @@
 import axios from 'axios'
-import type { MoviesParamsType, MoviesResponseType } from '../types'
-import { baseUrl } from '../config/api'
+import type { TmdbMoviesResponse } from '../types'
+import { baseUrl, apiKey, moviesEndpoint, searchEndpoint } from '../config/api'
 
-const apiKey = 'c56e29c2'
 
-// Запрос списка фильмов (поисковый)
-export async function requestMovies(params?: MoviesParamsType): Promise<any> {
+export async function getMovies(page: number = 1): Promise<TmdbMoviesResponse | void> {
   try {
-    const response = await axios.get(baseUrl, {
-      params: { ...params, apikey: apiKey }
+    const response = await axios.get(`${baseUrl}${moviesEndpoint}`, {
+      params: { api_key: apiKey, page }
     })
     return response.data
   } catch (error: any) {
-    console.error('Error requestMovies:', error.message)
+    console.log('Error:', error.message)
   }
 }
 
-// Запрос деталей фильма по imdbID
-export async function requestMovieDetails(imdbID: string): Promise<any> {
+export async function searchMovies(query: string, page: number = 1): Promise<TmdbMoviesResponse | void> {
   try {
-    const response = await axios.get(baseUrl, {
-      params: { apikey: apiKey, i: imdbID }
+    const response = await axios.get(`${baseUrl}${searchEndpoint}`, {
+      params: { api_key: apiKey, query, page }
     })
     return response.data
   } catch (error: any) {
-    console.error('Error requestMovieDetails:', error.message)
+    console.log('Error:', error.message)
   }
 }

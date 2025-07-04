@@ -1,29 +1,22 @@
 import React from 'react'
-import type { MovieCard } from '../../types'
-import { MdReadMore } from 'react-icons/md'
+import type { TmdbMovieCard } from '../../types'
 import style from './movie-card.module.css'
 
-export function Card(props: MovieCard): React.ReactElement {
-  const { title, rating, releaseDate, genres, posterUrl } = props
-
-  const genreString = genres.length > 0 ? genres.join(' · ') : ''
+export function Card( props: TmdbMovieCard ): React.ReactElement {
+  const { title, vote_average, release_date, poster_path, url } = props
 
   return (
-    <div className={style.card}>
-      <div className={style.imgContainer}>
-        <img src={posterUrl} alt="" className={style.img} />
-      </div>
-      <div className={style.content}>
-        <span className={style.rating}>{rating}</span>
-        <div className={style.description}>
+    <a href={url} className={style.cardLink}>
+      <div className={style.card}>
+        <div className={style.imgContainer}>
+          <img src={`https://image.tmdb.org/t/p/w200${poster_path}`} alt={title} className={style.img} />
+        </div>
+        <div className={style.content}>
+          <span className={style.rating}>{vote_average}</span>
           <h3 className={style.title}>{title}</h3>
-          <span className={style.release}>{releaseDate}</span>
-        </div>
-        <div className={style.more}>
-          <span className={style.genres}>{genreString}</span>
-          <a href="#" className={style.button}><MdReadMore color="white" /></a>
+          <span className={style.release}>{release_date}</span>
         </div>
       </div>
-    </div>
+    </a>
   )
 }

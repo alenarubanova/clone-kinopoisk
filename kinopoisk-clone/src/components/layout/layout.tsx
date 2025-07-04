@@ -3,7 +3,7 @@ import { Outlet } from 'react-router'
 import { Sidebar } from '../sidebar/sidebar'
 import { Main } from '../main/main'
 import { Container } from '../container/container'
-import { SearchBar } from '../search-bar/search-bar'
+import { Header } from '../header/header'
 import style from './layout.module.css'
 
 export function Layout(): React.ReactElement {
@@ -12,7 +12,7 @@ export function Layout(): React.ReactElement {
       <div className="d-flex flex-row">
         <Sidebar />
         <div className="d-flex flex-column flex-grow-1">
-          <SearchBar />
+          <Header />
           <Container>
             <Main>
               <Outlet />

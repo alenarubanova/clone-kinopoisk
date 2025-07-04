@@ -15,7 +15,7 @@ export function User( { userName = '', userSurname = '' }: UserProps ): React.Re
     <button className={style.btn}>
       <span className={style.abbreviated}>{userNameInitial}{userSurnameInitial}</span>
       <span className={style.user}>{userName} {userSurname}</span>
-      <IoIosArrowDown color="white"/>
+      <IoIosArrowDown color="grey"/>
     </button>
   )
 }

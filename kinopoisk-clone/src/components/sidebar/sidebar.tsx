@@ -13,7 +13,6 @@ import { IoSettingsSharp } from 'react-icons/io5'
 
 export function Sidebar(): React.ReactElement {
   const { lang, setLang } = useContext(LangContext)
-  const isDayTheme = document.body.classList.contains('day-theme')
 
   function handleChangeLang(event: ChangeEvent<HTMLSelectElement>): void {
     setLang(event.target.value)
@@ -24,11 +23,11 @@ export function Sidebar(): React.ReactElement {
       <nav className={style.nav}>
         <div className={style.container}>
           <a href="#" className={style.link}>
-            <img src={isDayTheme ? LogoDay : LogoNight} alt="Logo" className={style.img} />
+            <img src={LogoDay} alt="Logo" className={style.img} />
           </a>
           <ul className={style.navbar}>
             <li className={style.item}>
-              <NavLink to="/" className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}>
+              <NavLink to="/" className={({ isActive }) => (isActive ? `${style.link}` : `${style.link}`)}>
                 <ImHome color="grey" /> {locales[lang].header.home}
               </NavLink>
             </li>

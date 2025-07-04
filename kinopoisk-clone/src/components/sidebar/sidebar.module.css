@@ -2,9 +2,13 @@
   --color-white: #ffff;
   --color-accent: #7B61FF;
   --color-link-default: #80858B;
+  --color-link-hover: #787a7d;
+  --color-link-active: #5d5e5f;
 }
 
-.sidebar {}
+.sidebar {
+  margin-right: 1.5rem;
+}
 
 .nav {
   display: flex;
@@ -45,6 +49,15 @@
   font-weight: 600;
   line-height: 1.5rem;
   color: var(--color-link-default);
+  transition: color 0.2s ease-in-out;
+}
+
+.link:hover {
+  color: var(--color-link-hover);
+}
+
+.link:active {
+  color: var(--color-link-active);
 }
 
 .select {

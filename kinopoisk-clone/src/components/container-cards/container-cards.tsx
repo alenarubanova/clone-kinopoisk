@@ -1,25 +1,16 @@
-import React, { useEffect } from 'react'
-import { useAppDispatch, useAppSelector } from '../../redux/store'
-import { fetchMovies } from '../../redux/films-slice'
 import { Card } from '../movie-card/movie-card'
 import style from './container-cards.module.css'
+import type { TmdbMovieCard } from '../../types'
 
-export function ContainerCards() {
-  const dispatch = useAppDispatch()
-  const { list, isLoading, error } = useAppSelector(state => state.movies)
+interface ContainerCardsProps {
+  movies: TmdbMovieCard[]
+}
 
-  useEffect(() => {
-    dispatch(fetchMovies({ s: 'batman', page: 1 }))
-  }, [dispatch])
-
-  if (isLoading) return <div className={style.loading}>Загрузка...</div>
-  if (error) return <div className={style.error}>Ошибка: {error}</div>
-  if (!list || list.length === 0) return <div className={style.empty}>Нет фильмов</div>
-
+export function ContainerCards({ movies }: ContainerCardsProps) {
   return (
     <div className={style.container}>
-      {list.map(movie => (
-        <Card key={movie.imdbID} {...movie} />
+      {movies.map(movie => (
+        <Card key={movie.id} {...movie} />
       ))}
     </div>
   )

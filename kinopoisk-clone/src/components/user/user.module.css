@@ -1,5 +1,6 @@
 :root {
   --color-white: #ffff;
+  --color-grey: #80858B;
   --color-accent: #7B61FF;
 }
 
@@ -44,5 +45,5 @@
   font-size: 1rem;
   font-weight: 600;
   line-height: 1.5rem;
-  color: var(--color-white);
+  color: var(--color-grey);
 }

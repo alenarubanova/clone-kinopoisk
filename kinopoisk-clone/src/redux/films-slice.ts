@@ -1,40 +1,37 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import type { MovieCard, MoviesParamsType, MoviesResponseType } from '../types'
-import { requestMovies, requestMovieDetails } from '../services/movies'
+import type { TmdbMovieCard, TmdbMoviesStateType } from '../types'
+import { getMovies, searchMovies } from '../services/movies'
+import { FILMES_LIMIT } from '../config/constants'
 
-export const fetchMovies = createAsyncThunk(
-  'movies/fetchMovies',
-  async (params: MoviesParamsType = { s: 'batman', page: 1 }) => {
-    const searchResponse = await requestMovies(params)
 
-    if (!searchResponse || searchResponse.Response === 'False') {
-      throw new Error(searchResponse?.Error || 'Ошибка загрузки фильмов')
+export const fetchMovies = createAsyncThunk( 'movies/fetchMovies', async (params: { search?: string, page?: number } = {}) => {
+    const response = params.search
+      ? await searchMovies(params.search, params.page || 1)
+      : await getMovies(params.page || 1)
+
+    if (!response) {
+      throw new Error('Ошибка загрузки фильмов')
     }
 
-    const detailedMovies: MovieCard[] = await Promise.all(
-      searchResponse.Search.map(async (movie: any) => {
-        const details = await requestMovieDetails(movie.imdbID)
-        return {
-          imdbID: details.imdbID,
-          title: details.Title,
-          releaseDate: details.Year,
-          posterUrl: details.Poster !== 'N/A' ? details.Poster : '',
-          rating: details.imdbRating || 'N/A',
-          genres: details.Genre ? details.Genre.split(', ') : []
-        }
-      })
-    )
+    const movies: TmdbMovieCard[] = response.results.map(movie => ({
+      id: movie.id,
+      title: movie.title,
+      vote_average: Number(movie.vote_average.toFixed(1)),
+      release_date: movie.release_date,
+      poster_path: movie.poster_path,
+      url: `/movie/${movie.id}`
+    }))
 
     return {
-      count: parseInt(searchResponse.totalResults, 10),
-      results: detailedMovies
-    } as MoviesResponseType
+      count: response.total_results,
+      results: movies
+    }
   }
 )
 
-const initialState = {
-  list: null as MovieCard[] | null,
-  error: null as string | null,
+const initialState: TmdbMoviesStateType = {
+  list: null,
+  error: null,
   isLoading: false,
   limit: 10,
   total: 0
@@ -43,7 +40,12 @@ const initialState = {
 const moviesSlice = createSlice({
   name: 'movies',
   initialState,
-  reducers: {},
+  reducers: {
+    clearMovies(state) {
+      state.list = []
+      state.total = 0
+    }
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchMovies.pending, (state) => {
@@ -63,3 +65,4 @@ const moviesSlice = createSlice({
 })
 
 export const moviesReducer = moviesSlice.reducer
+export const { clearMovies } = moviesSlice.actions

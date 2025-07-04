@@ -1,0 +1,1 @@
+export const FILMES_LIMIT: number = 10

@@ -1,54 +1,53 @@
-export interface MovieDetail {
-  title: string
-  rating: string
-  genres: string[]
-  plot: string
-  releaseDate: string
-  boxOffice: string
-  country: string
-  production: string
-  actors: string[]
-  writers: string[]
-  recommendations: string[]
-  posterUrl: string
-}
-
-export type MoviesStateType = {
-  list: MovieCard[] | null
+export type TmdbMoviesStateType = {
+  list: TmdbMovieCard[] | null
   error: string | null
   isLoading: boolean
   limit: number
   total: number
 }
 
-export type MoviesParamsType = {
-  genre?: string
-  limit?: number
-  offset?: number
-  ordering?: string
-  search?: string
-  year?: string
-}
-
-export interface OmdbMovie {
-  imdbID: string
-  Title: string
-  Year: string
-  Poster: string
-}
-
-export type MoviesResponseType = {
-  Search: OmdbMovie[]
-  totalResults: string
-  Response: 'True' | 'False'
-  Error?: string
-}
-
-export interface MovieCard {
-  imdbID: string
+export interface TmdbMovie {
+  adult: boolean
+  backdrop_path: string | null
+  genre_ids: number[]
+  id: number
+  original_language: string
+  original_title: string
+  overview: string
+  popularity: number
+  poster_path: string | null
+  release_date: string
   title: string
-  rating: string
-  releaseDate: string
-  genres: string[]
-  posterUrl: string
+  video: boolean
+  vote_average: number
+  vote_count: number
+}
+
+export interface TmdbMoviesResponse {
+  page: number
+  results: TmdbMovie[]
+  total_pages: number
+  total_results: number
+}
+
+export interface TmdbMovieCard {
+  id: number
+  title: string
+  vote_average: number
+  release_date: string
+  poster_path: string | null
+  url: string
+}
+
+export interface MoviePageData {
+  id: number
+  title: string
+  poster_path: string | null
+  vote_average: number
+  overview: string
+  release_date: string
+  runtime: number
+  actors: string[]
+  director: string
+  writers: string[]
 }

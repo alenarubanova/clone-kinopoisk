@@ -1,0 +1,29 @@
+:root {
+  --color-grey: #AFB2B6;
+  --color-accent-button: #7B61FF;
+  --color-white: #ffff;
+}
+
+.input {
+  font-family: 'Exo 2', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--color-grey);
+  padding: 0.875rem 1.25rem;
+  border: 1px solid var(--color-grey);
+  border-radius: 0.5rem;
+  margin-top: 0.5rem;
+  outline: none;
+  margin-right: 1rem;
+}
+
+.button {
+  font-family: 'Exo 2', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--color-white);
+  padding: 0.875rem 1.25rem;
+  background-color: var(--color-accent-button);
+  border-radius: 0.5rem;
+  border: none;
+}

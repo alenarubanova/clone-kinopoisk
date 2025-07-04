@@ -1,0 +1,27 @@
+:root {
+  --color-bg-loader: #AFB2B6;
+  --color-white: #ffff;
+  --color-loader: #7B61FF;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 3rem;
+  background-color: var(--color-bg-loader);
+  border-radius: 3.125rem;
+}
+
+.text {
+  font-family: 'Exo 2', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1.5rem;
+  margin-right: 0.875rem;
+  color: var(--color-white);
+}
+
+.spinner {
+  color: var(--color-loader);
+}
