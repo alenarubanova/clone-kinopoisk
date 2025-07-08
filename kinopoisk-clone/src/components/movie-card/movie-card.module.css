@@ -124,3 +124,24 @@
   background-color: var(--color-accent-active);
   transform: scale(0.98)
 }
+
+.link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  cursor: pointer;
+  position: absolute;
+  top: 17rem;
+  right: 0;
+}
+
+.favoriteButton {
+  position: absolute;
+  top: 17rem;
+  right: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.2s ease-in-out;
+}

@@ -1,6 +1,7 @@
-import React, { useContext, type ChangeEvent } from 'react'
+import React, { type ChangeEvent } from 'react'
 import { NavLink } from 'react-router'
-import { LangContext } from '../../contexts/LangContext'
+import { useAppSelector, useAppDispatch } from '../../redux/store'
+import { setLang } from '../../redux/lang-slice'
 import { locales } from '../../config/locales'
 import style from './sidebar.module.css'
 import LogoDay from '../../assets/logo/pixema-day.svg'
@@ -12,10 +13,11 @@ import { MdFavorite } from 'react-icons/md'
 import { IoSettingsSharp } from 'react-icons/io5'
 
 export function Sidebar(): React.ReactElement {
-  const { lang, setLang } = useContext(LangContext)
+  const lang = useAppSelector(state => state.lang.lang)
+  const dispatch = useAppDispatch()
 
   function handleChangeLang(event: ChangeEvent<HTMLSelectElement>): void {
-    setLang(event.target.value)
+    dispatch(setLang(event.target.value as 'en' | 'ru'))
   }
 
   return (
@@ -37,9 +39,9 @@ export function Sidebar(): React.ReactElement {
               </a>
             </li>
             <li className={style.item}>
-              <a href="#" className={style.link}>
+              <NavLink to="/favorites" className={({ isActive }) => (isActive ? `${style.link}` : `${style.link}`)}>
                 <MdFavorite color="grey" /> {locales[lang].header.favorites}
-              </a>
+              </NavLink>
             </li>
             <li className={style.item}>
               <a href="#" className={style.link}>

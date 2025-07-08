@@ -51,3 +51,12 @@ export interface MoviePageData {
   director: string
   writers: string[]
 }
+
+export type FavoritesStateType = {
+  list: TmdbMovieCard[]
+}
+
+export type LangType = 'en' | 'ru'
+export type LangStateType = {
+  lang: LangType
+}

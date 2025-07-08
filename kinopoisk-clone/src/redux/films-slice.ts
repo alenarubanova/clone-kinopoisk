@@ -1,8 +1,9 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit'
 import type { TmdbMovieCard, TmdbMoviesStateType } from '../types'
 import { getMovies, searchMovies } from '../services/movies'
 import { FILMES_LIMIT } from '../config/constants'
 
+const FAVORITES_KEY = 'favorites'
 
 export const fetchMovies = createAsyncThunk( 'movies/fetchMovies', async (params: { search?: string, page?: number } = {}) => {
     const response = params.search
@@ -29,8 +30,9 @@ export const fetchMovies = createAsyncThunk( 'movies/fetchMovies', async (params
   }
 )
 
-const initialState: TmdbMoviesStateType = {
+const initialState: TmdbMoviesStateType & { favorites: number[] } = {
   list: null,
+  favorites: [],
   error: null,
   isLoading: false,
   limit: 10,
@@ -44,6 +46,23 @@ const moviesSlice = createSlice({
     clearMovies(state) {
       state.list = []
       state.total = 0
+    },
+    addFavorite(state, action: PayloadAction<number>) {
+      if (!state.favorites.includes(action.payload)) {
+        state.favorites.push(action.payload)
+        localStorage.setItem(FAVORITES_KEY, JSON.stringify(state.favorites))
+      }
+    },
+    removeFavorite(state, action: PayloadAction<number>) {
+      state.favorites = state.favorites.filter(id => id !== action.payload)
+      localStorage.setItem(FAVORITES_KEY, JSON.stringify(state.favorites))
+    },
+    clearFavorites(state) {
+      state.favorites = []
+      localStorage.setItem(FAVORITES_KEY, '[]')
+    },
+    setFavorites(state, action: PayloadAction<number[]>) {
+      state.favorites = action.payload
     }
   },
   extraReducers: (builder) => {
@@ -65,4 +84,4 @@ const moviesSlice = createSlice({
 })
 
 export const moviesReducer = moviesSlice.reducer
-export const { clearMovies } = moviesSlice.actions
+export const { clearMovies, addFavorite, removeFavorite, clearFavorites, setFavorites } = moviesSlice.actions

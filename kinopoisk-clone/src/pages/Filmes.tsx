@@ -8,7 +8,7 @@ export function Filmes(): React.ReactElement {
   const { list } = useAppSelector(state => state.movies)
 
   useEffect(() => {
-    dispatch(fetchMovies({ s: 'batman', page: 1 }) as any)
+    dispatch(fetchMovies({ page: 1 }))
   }, [dispatch])
 
   return (

@@ -1,11 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { useDispatch, useSelector } from 'react-redux'
 import { moviesReducer } from './films-slice'
-
+import { langReducer } from './lang-slice'
 
 export const store = configureStore({
   reducer: {
-    movies: moviesReducer
+    movies: moviesReducer,
+    lang: langReducer,
   },
 })
 

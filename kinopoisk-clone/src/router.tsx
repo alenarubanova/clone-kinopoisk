@@ -3,6 +3,7 @@ import type { RouteObject } from 'react-router'
 import { Layout } from './components/layout/layout'
 import { Filmes } from './pages/Filmes'
 import { Results } from './pages/Results'
+import { Favorites } from './pages/Favorites'
 
 const routes: RouteObject[] = [
   {
@@ -15,6 +16,10 @@ const routes: RouteObject[] = [
       {
         path: 'results',
         element: <Results />,
+      },
+      {
+        path: 'favorites',
+        element: <Favorites />,
       },
     ],
   },
