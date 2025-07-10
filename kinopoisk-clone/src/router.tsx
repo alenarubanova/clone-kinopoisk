@@ -4,6 +4,8 @@ import { Layout } from './components/layout/layout'
 import { Filmes } from './pages/Filmes'
 import { Results } from './pages/Results'
 import { Favorites } from './pages/Favorites'
+import { Film } from './pages/Film'
+import { Trends } from './pages/Trends'
 
 const routes: RouteObject[] = [
   {
@@ -20,6 +22,14 @@ const routes: RouteObject[] = [
       {
         path: 'favorites',
         element: <Favorites />,
+      },
+      {
+        path: 'trends',
+        element: <Trends />,
+      },
+      {
+        path: 'movie/:id',
+        element: <Film />,
       },
     ],
   },

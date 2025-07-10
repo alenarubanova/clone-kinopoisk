@@ -1,23 +1,25 @@
+import React, { useEffect } from 'react'
 import { Card } from '../movie-card/movie-card'
+import { Loader } from '../loader/loader'
 import style from './container-cards.module.css'
-import type { TmdbMovieCard } from '../../types'
-import { useAppDispatch } from '../../redux/store'
-import { addFavorite } from '../../redux/films-slice'
+import { useAppDispatch, useAppSelector } from '../../redux/store'
+import { fetchMovies } from '../../redux/films-slice'
 
-interface ContainerCardsProps {
-  movies: TmdbMovieCard[]
-}
+export function ContainerCards(): React.ReactElement {
+  const dispatch = useAppDispatch()
+  const { list, isLoading } = useAppSelector(state => state.movies)
 
-export function ContainerCards({ movies }: ContainerCardsProps) {
-  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(fetchMovies({ page: 1 }))
+  }, [dispatch])
+
+  if (isLoading) return <Loader />
+  if (!list || list.length === 0) return <div> No movies </div>
+
   return (
     <div className={style.container}>
-      {movies.map(movie => (
-        <Card
-          key={movie.id}
-          {...movie}
-          onAddToFavorites={() => dispatch(addFavorite(movie.id))}
-        />
+      {list.map(movie => (
+        <Card key={movie.id} {...movie} />
       ))}
     </div>
   )

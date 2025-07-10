@@ -9,7 +9,7 @@ export type TmdbMoviesStateType = {
 export interface TmdbMovie {
   adult: boolean
   backdrop_path: string | null
-  genre_ids: number[]
+  genre_ids: number[] | null
   id: number
   original_language: string
   original_title: string
@@ -23,6 +23,7 @@ export interface TmdbMovie {
   vote_count: number
 }
 
+// For search and get movies
 export interface TmdbMoviesResponse {
   page: number
   results: TmdbMovie[]
@@ -30,6 +31,7 @@ export interface TmdbMoviesResponse {
   total_results: number
 }
 
+// For card about film in list
 export interface TmdbMovieCard {
   id: number
   title: string
@@ -39,7 +41,18 @@ export interface TmdbMovieCard {
   url: string
 }
 
-export interface MoviePageData {
+// For favorites
+export type FavoritesStateType = {
+  list: TmdbMovieCard[]
+}
+
+// For page film details
+export interface TmdbGenre {
+  id: number
+  name: string
+}
+
+export interface TmdbMovieDetails {
   id: number
   title: string
   poster_path: string | null
@@ -47,15 +60,21 @@ export interface MoviePageData {
   overview: string
   release_date: string
   runtime: number
-  actors: string[]
-  director: string
-  writers: string[]
+  genres: TmdbGenre[]
+  adult: boolean
+  popularity: number
+  production_countries: { iso_3166_1: string; name: string }[]
+  original_language: string
 }
 
-export type FavoritesStateType = {
-  list: TmdbMovieCard[]
+export interface TabsProps {
+  tabs: Array<{
+    label: string
+    path: string
+  }>
 }
 
+// For language state
 export type LangType = 'en' | 'ru'
 export type LangStateType = {
   lang: LangType

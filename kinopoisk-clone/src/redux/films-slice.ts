@@ -1,8 +1,6 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit'
 import type { TmdbMovieCard, TmdbMoviesStateType } from '../types'
 import { getMovies, searchMovies } from '../services/movies'
-import { FILMES_LIMIT } from '../config/constants'
-
 const FAVORITES_KEY = 'favorites'
 
 export const fetchMovies = createAsyncThunk( 'movies/fetchMovies', async (params: { search?: string, page?: number } = {}) => {

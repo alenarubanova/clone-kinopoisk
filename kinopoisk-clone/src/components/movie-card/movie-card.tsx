@@ -2,6 +2,7 @@ import React from 'react'
 import type { TmdbMovieCard } from '../../types'
 import style from './movie-card.module.css'
 import { MdFavorite } from 'react-icons/md'
+import { useNavigate } from 'react-router'
 
 interface CardProps extends TmdbMovieCard {
   onAddToFavorites?: () => void
@@ -9,6 +10,7 @@ interface CardProps extends TmdbMovieCard {
 
 export function Card(props: CardProps): React.ReactElement {
   const {
+    id,
     title,
     vote_average,
     release_date,
@@ -17,29 +19,32 @@ export function Card(props: CardProps): React.ReactElement {
     onAddToFavorites,
   } = props
 
+  const navigate = useNavigate()
+
   function handleAddToFavorites(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     event.stopPropagation()
     event.preventDefault()
     onAddToFavorites?.()
   }
 
-  return (
-    <div className={style.card}>
-      <a href={url} className={style.cardLink}>
-        <div className={style.imgContainer}>
-          <img
-            src={`https://image.tmdb.org/t/p/w200${poster_path}`}
-            alt={title}
-            className={style.img}
-          />
-        </div>
-        <div className={style.content}>
-          <span className={style.rating}>{vote_average}</span>
-          <h3 className={style.title}>{title}</h3>
-          <span className={style.release}>{release_date}</span>
-        </div>
-      </a>
+  function handleCardClick() {
+    navigate(`/movie/${id}`)
+  }
 
+  return (
+    <div className={style.card} onClick={handleCardClick} style={{ cursor: 'pointer' }}>
+      <div className={style.imgContainer}>
+        <img
+          src={`https://image.tmdb.org/t/p/w200${poster_path}`}
+          alt={title}
+          className={style.img}
+        />
+      </div>
+      <div className={style.content}>
+        <span className={style.rating}>{vote_average}</span>
+        <h3 className={style.title}>{title}</h3>
+        <span className={style.release}>{release_date}</span>
+      </div>
       {onAddToFavorites && (
         <button
           type="button"

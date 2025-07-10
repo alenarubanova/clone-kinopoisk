@@ -34,9 +34,9 @@ export function Sidebar(): React.ReactElement {
               </NavLink>
             </li>
             <li className={style.item}>
-              <a href="#" className={style.link}>
+              <NavLink to="/trends" className={({ isActive }) => (isActive ? `${style.link}` : `${style.link}`)}>
                 <FaFire color="grey" /> {locales[lang].header.trends}
-              </a>
+              </NavLink>
             </li>
             <li className={style.item}>
               <NavLink to="/favorites" className={({ isActive }) => (isActive ? `${style.link}` : `${style.link}`)}>
