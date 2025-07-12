@@ -4,7 +4,7 @@ import { filmsReducer } from './films-slice'
 import { langReducer } from './lang-slice'
 import { filmReducer } from './film-slice'
 import { tabsReducer } from './tabs-slice'
-import themeReducer from './theme-slice'
+import { themeReducer } from './theme-slice'
 
 export const store = configureStore({
   reducer: {

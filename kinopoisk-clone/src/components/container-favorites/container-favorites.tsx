@@ -1,7 +1,7 @@
 import React from 'react'
 import style from './container-favorites.module.css'
 import EmptyImage from '../../assets/no-images/day.png'
-import { Card } from '../movie-card/movie-card'
+import { Card } from '../film-card/film-card'
 import { useAppSelector } from '../../redux/store'
 import { useAppDispatch } from '../../redux/store'
 import { removeFavorite } from '../../redux/films-slice'

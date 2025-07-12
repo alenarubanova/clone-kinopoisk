@@ -1,8 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
-
-interface TabsState {
-  activeIndex: number
-}
+import { type TabsState } from '../types'
 
 const initialState: TabsState = {
   activeIndex: 1

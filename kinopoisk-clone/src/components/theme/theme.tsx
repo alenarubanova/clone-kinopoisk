@@ -4,14 +4,14 @@ import '../../styles/main.scss'
 import { IoSunny } from 'react-icons/io5'
 import { MdNightsStay } from 'react-icons/md'
 import { useAppDispatch, useAppSelector } from '../../redux/store'
-import { toggleTheme } from '../../redux/theme-slice'
+import { setTheme } from '../../redux/theme-slice'
 
 export function Theme() {
   const dispatch = useAppDispatch()
   const theme = useAppSelector(state => state.theme.theme)
 
   const handleClick = () => {
-    dispatch(toggleTheme())
+    dispatch(setTheme(theme === 'day' ? 'night' : 'day'))
   }
 
   useEffect(() => {

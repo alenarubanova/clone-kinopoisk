@@ -1,7 +1,7 @@
 import React from 'react'
 import { useAppSelector, useAppDispatch } from '../../redux/store'
 import { addFavorite, removeFavorite } from '../../redux/films-slice'
-import { Card } from '../movie-card/movie-card'
+import { Card } from '../film-card/film-card'
 import { locales } from '../../config/locales'
 import style from './recommendations.module.css'
 

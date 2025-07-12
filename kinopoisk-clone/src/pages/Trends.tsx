@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { ContainerTrends } from '../components/container-trends/container-trends'
-import style from '../styles/main.module.css'
 import { useAppSelector } from '../redux/store'
 import { locales } from '../config/locales'
+import style from '../styles/main.module.css'
 
 export function Trends(): React.ReactElement {
   const lang = useAppSelector(state => state.lang.lang)

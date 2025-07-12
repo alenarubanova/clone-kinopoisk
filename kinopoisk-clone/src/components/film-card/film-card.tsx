@@ -1,9 +1,9 @@
 import React from 'react'
 import type { TmdbFilmCard } from '../../types'
-import style from './movie-card.module.css'
 import { MdFavorite } from 'react-icons/md'
 import { MdDelete } from 'react-icons/md'
 import { useNavigate } from 'react-router'
+import style from './film-card.module.css'
 
 interface CardProps extends TmdbFilmCard {
   onAddToFavorites?: () => void

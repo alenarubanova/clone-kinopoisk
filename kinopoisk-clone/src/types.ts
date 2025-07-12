@@ -54,6 +54,12 @@ export type FilmsParamsType = {
   ordering?: string
 }
 
+export interface FilmStateType {
+  data: TmdbMovieDetails | null
+  isLoading: boolean
+  error: string | null
+}
+
 export type FilmsStateType = {
   list: TmdbFilmCard[] | null
   favorites: TmdbFilmCard[]
@@ -78,3 +84,10 @@ export interface TabsProps {
     path: string
   }>
 }
+
+export interface TabsState {
+  activeIndex: number
+}
+
+// Theme
+export type ThemeType = 'day' | 'night'

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Card } from '../movie-card/movie-card'
+import { Card } from '../film-card/film-card'
 import { Loader } from '../loader/loader'
 import { useAppDispatch, useAppSelector } from '../../redux/store'
 import { fetchFilms } from '../../redux/films-slice'

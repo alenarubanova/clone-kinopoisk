@@ -4,9 +4,7 @@ import { getFilms, searchFilms } from '../services/movies'
 import { FILMS_LIMIT } from '../config/constants'
 import type { RootState } from './store'
 
-export const fetchFilms = createAsyncThunk(
-  'films/fetchFilms',
-  async (params: FilmsParamsType = {}, { getState }) => {
+export const fetchFilms = createAsyncThunk('films/fetchFilms', async (params: FilmsParamsType = {}, { getState }) => {
     const { limit = FILMS_LIMIT, page = 1 } = params
     const ordering = (getState() as RootState).films.ordering
 
@@ -16,9 +14,7 @@ export const fetchFilms = createAsyncThunk(
   }
 )
 
-export const searchFilm = createAsyncThunk(
-  'films/searchFilms',
-  async (params: FilmsParamsType = {}, { getState }) => {
+export const searchFilm = createAsyncThunk('films/searchFilms', async (params: FilmsParamsType = {}, { getState }) => {
     const ordering = (getState() as RootState).films.ordering
     const data = await searchFilms({ ...params, ordering })
     return data

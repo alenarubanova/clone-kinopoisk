@@ -1,17 +1,11 @@
 import { createSlice, type PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
-import type { TmdbMovieDetails } from '../types'
-import { getFilmById } from '../services/movies'
+import type { FilmStateType } from '../types'
+import { requestFilm } from '../services/movies'
 
 export const fetchFilm = createAsyncThunk('film/fetchFilm', async (id: number) => {
-  const data = await getFilmById(id)
+  const data = await requestFilm(id)
   return data
 })
-
-interface FilmStateType {
-  data: TmdbMovieDetails | null
-  isLoading: boolean
-  error: string | null
-}
 
 const initialState: FilmStateType = {
   data: null,

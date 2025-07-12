@@ -10,10 +10,12 @@ import { locales } from '../config/locales'
 import style from '../styles/main.module.css'
 
 export function Film(): React.ReactElement {
+
   const { id } = useParams<{ id: string }>()
   const dispatch = useAppDispatch()
-  const lang = useAppSelector(state => state.lang.lang)
   const { data, isLoading, error } = useAppSelector(state => state.film)
+
+  const lang = useAppSelector(state => state.lang.lang)
 
   useEffect(() => {
     if (!id) return
@@ -40,7 +42,7 @@ export function Film(): React.ReactElement {
       <div className={style.wrapper}>
         <img src={`https://image.tmdb.org/t/p/w300${data.poster_path}`} alt={data.title} className={style.image} />
         <div className={style.description}>
-          <p className={style.genres}>{Array.isArray(data.genres) ? data.genres.map(g => g.name).join(' · ') : 'Нет данных'}</p>
+          <p className={style.genres}>{Array.isArray(data.genres) ? data.genres.map(genre => genre.name).join(' · ') : 'No data'}</p>
           <h2 className={style.title}>{data.title}</h2>
           <div className={style.info}>
             <span className={style.rating}>{data.vote_average}</span>

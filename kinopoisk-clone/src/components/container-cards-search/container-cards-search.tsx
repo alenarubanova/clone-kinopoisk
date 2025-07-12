@@ -1,4 +1,4 @@
-import { Card } from '../movie-card/movie-card'
+import { Card } from '../film-card/film-card'
 import { Loader } from '../loader/loader'
 import type { TmdbFilmCard } from '../../types'
 import { useAppSelector, useAppDispatch } from '../../redux/store'
@@ -11,15 +11,18 @@ interface ContainerCardsSearchProps {
 
 export function ContainerCardsSearch({ films }: ContainerCardsSearchProps) {
   const { isLoading, favorites } = useAppSelector(state => state.films)
-
   const dispatch = useAppDispatch()
 
+  const handleAddToFavorites = (film: TmdbFilmCard) => {
+    dispatch(addFavorite(film))
+  }
+
+  const handleRemoveFromFavorites = (filmId: number) => {
+    dispatch(removeFavorite(filmId))
+  }
+
   if (isLoading) {
-    return (
-      <div className={style.container}>
-        <Loader />
-      </div>
-    )
+    return <Loader />
   }
 
   return (
@@ -34,8 +37,8 @@ export function ContainerCardsSearch({ films }: ContainerCardsSearchProps) {
               key={film.id}
               {...film}
               isFavorite={isFavorite}
-              onAddToFavorites={() => dispatch(addFavorite(film))}
-              onRemoveFromFavorites={() => dispatch(removeFavorite(film.id))}
+              onAddToFavorites={() => handleAddToFavorites(film)}
+              onRemoveFromFavorites={() => handleRemoveFromFavorites(film.id)}
               showTrash={false}
             />
           )
