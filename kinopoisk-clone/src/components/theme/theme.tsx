@@ -1,21 +1,26 @@
-import {useEffect, useState} from 'react'
+import { useEffect } from 'react'
 import style from './theme.module.css'
 import '../../styles/main.scss'
 import { IoSunny } from 'react-icons/io5'
 import { MdNightsStay } from 'react-icons/md'
+import { useAppDispatch, useAppSelector } from '../../redux/store'
+import { toggleTheme } from '../../redux/theme-slice'
 
 export function Theme() {
-  const [isDayTheme, setIsDayTheme] = useState<boolean>(true)
+  const dispatch = useAppDispatch()
+  const theme = useAppSelector(state => state.theme.theme)
 
-  const handleClick = (): void => {
-    setIsDayTheme(prev => !prev)
+  const handleClick = () => {
+    dispatch(toggleTheme())
   }
 
   useEffect(() => {
-    document.body.className = isDayTheme ? 'day-theme' : 'night-theme'
-  }, [isDayTheme])
+    document.body.className = theme === 'day' ? 'day-theme' : 'night-theme'
+  }, [theme])
 
-  const Icon = isDayTheme ? <IoSunny color="grey" className={style.img} /> : <MdNightsStay color="grey" className={style.img} />
+  const Icon = theme === 'day'
+    ? <IoSunny color="grey" className={style.img} />
+    : <MdNightsStay color="grey" className={style.img} />
 
   return (
     <button type="button" className={style.btn} onClick={handleClick}>

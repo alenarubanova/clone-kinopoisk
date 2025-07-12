@@ -16,6 +16,7 @@
 
 .card {
   position: relative;
+  cursor: pointer;
 }
 
 .imgContainer {
@@ -59,7 +60,7 @@
   font-size: 0.875rem;
   font-weight: 700;
   line-height: 1.5rem;
-  color: var(--color-black);
+  color: inherit;
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
@@ -73,7 +74,7 @@
   font-size: 0.875rem;
   font-weight: 700;
   line-height: 1.5rem;
-  color: var(--color-black);
+  color: inherit;
 
   white-space: nowrap;
   overflow: hidden;
@@ -88,20 +89,6 @@
   align-items: center;
 }
 
-.genres {
-  font-family: 'Exo 2', sans-serif;
-  font-size: 0.875rem;
-  font-weight: 400;
-  line-height: 1.5rem;
-  color: var(--color-grey);
-
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: normal;
-}
 
 .button {
   text-decoration: none;

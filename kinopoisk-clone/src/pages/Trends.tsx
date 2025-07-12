@@ -1,15 +1,16 @@
-import React, { useEffect } from 'react'
-import { useAppDispatch, useAppSelector } from '../redux/store'
-import { fetchMovies } from '../redux/films-slice'
+import React, { useState } from 'react'
 import { ContainerTrends } from '../components/container-trends/container-trends'
+import style from '../styles/main.module.css'
+import { useAppSelector } from '../redux/store'
+import { locales } from '../config/locales'
 
 export function Trends(): React.ReactElement {
-  const dispatch = useAppDispatch()
-  const { list, isLoading } = useAppSelector(state => state.movies)
+  const lang = useAppSelector(state => state.lang.lang)
 
-  useEffect(() => {
-    dispatch(fetchMovies({ page: 1 }))
-  }, [dispatch])
-
-  return <ContainerTrends movies={list ?? []} isLoading={isLoading} />
+  return (
+    <>
+      <h1 className={style.title}>{locales[lang].trends.title}</h1>
+      <ContainerTrends />
+    </>
+  )
 }

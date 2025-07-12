@@ -1,19 +1,18 @@
 import { Card } from '../movie-card/movie-card'
 import { Loader } from '../loader/loader'
+import type { TmdbFilmCard } from '../../types'
+import { useAppSelector, useAppDispatch } from '../../redux/store'
+import { addFavorite, removeFavorite } from '../../redux/films-slice'
 import style from './container-cards-search.module.css'
-import type { TmdbMovieCard } from '../../types'
-import { useAppSelector } from '../../redux/store'
-import { useAppDispatch } from '../../redux/store'
-import { addFavorite } from '../../redux/films-slice'
 
 interface ContainerCardsSearchProps {
-  movies: TmdbMovieCard[]
+  films: TmdbFilmCard[]
 }
 
-export function ContainerCardsSearch({ movies }: ContainerCardsSearchProps) {
-  const { isLoading } = useAppSelector(state => state.movies)
-  const dispatch = useAppDispatch();
+export function ContainerCardsSearch({ films }: ContainerCardsSearchProps) {
+  const { isLoading, favorites } = useAppSelector(state => state.films)
 
+  const dispatch = useAppDispatch()
 
   if (isLoading) {
     return (
@@ -25,12 +24,22 @@ export function ContainerCardsSearch({ movies }: ContainerCardsSearchProps) {
 
   return (
     <div className={style.container}>
-      {(!movies || movies.length === 0) ? (
-        <h1 className={style.empty}>Movies not found</h1>
+      {(!films || films.length === 0) ? (
+        <h1 className={style.empty}>Films not found</h1>
       ) : (
-        movies.map(movie => (
-          <Card key={movie.id} {...movie} onAddToFavorites={() => dispatch(addFavorite(movie.id))} />
-        ))
+        films.map(film => {
+          const isFavorite = favorites.some(f => f.id === film.id)
+          return (
+            <Card
+              key={film.id}
+              {...film}
+              isFavorite={isFavorite}
+              onAddToFavorites={() => dispatch(addFavorite(film))}
+              onRemoveFromFavorites={() => dispatch(removeFavorite(film.id))}
+              showTrash={false}
+            />
+          )
+        })
       )}
     </div>
   )

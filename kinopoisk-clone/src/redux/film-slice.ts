@@ -1,9 +1,9 @@
 import { createSlice, type PayloadAction, createAsyncThunk } from '@reduxjs/toolkit'
 import type { TmdbMovieDetails } from '../types'
-import { getMovieById } from '../services/movies'
+import { getFilmById } from '../services/movies'
 
 export const fetchFilm = createAsyncThunk('film/fetchFilm', async (id: number) => {
-  const data = await getMovieById(id)
+  const data = await getFilmById(id)
   return data
 })
 

@@ -3,14 +3,13 @@ import { NavLink } from 'react-router'
 import { useAppSelector, useAppDispatch } from '../../redux/store'
 import { setLang } from '../../redux/lang-slice'
 import { locales } from '../../config/locales'
-import style from './sidebar.module.css'
-import LogoDay from '../../assets/logo/pixema-day.svg'
-import LogoNight from '../../assets/logo/pixema-night.svg'
+import { Logo } from '../logo/Logo'
 import { Theme } from '../theme/theme'
 import { ImHome } from 'react-icons/im'
 import { FaFire } from 'react-icons/fa'
 import { MdFavorite } from 'react-icons/md'
 import { IoSettingsSharp } from 'react-icons/io5'
+import style from './sidebar.module.css'
 
 export function Sidebar(): React.ReactElement {
   const lang = useAppSelector(state => state.lang.lang)
@@ -25,7 +24,7 @@ export function Sidebar(): React.ReactElement {
       <nav className={style.nav}>
         <div className={style.container}>
           <a href="#" className={style.link}>
-            <img src={LogoDay} alt="Logo" className={style.img} />
+            <Logo />
           </a>
           <ul className={style.navbar}>
             <li className={style.item}>

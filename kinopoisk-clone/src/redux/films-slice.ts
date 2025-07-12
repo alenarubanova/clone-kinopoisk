@@ -1,85 +1,83 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from '@reduxjs/toolkit'
-import type { TmdbMovieCard, TmdbMoviesStateType } from '../types'
-import { getMovies, searchMovies } from '../services/movies'
-const FAVORITES_KEY = 'favorites'
+import type { FilmsParamsType, FilmsStateType, TmdbFilmsResponse, TmdbFilmCard } from '../types'
+import { getFilms, searchFilms } from '../services/movies'
+import { FILMS_LIMIT } from '../config/constants'
+import type { RootState } from './store'
 
-export const fetchMovies = createAsyncThunk( 'movies/fetchMovies', async (params: { search?: string, page?: number } = {}) => {
-    const response = params.search
-      ? await searchMovies(params.search, params.page || 1)
-      : await getMovies(params.page || 1)
+export const fetchFilms = createAsyncThunk(
+  'films/fetchFilms',
+  async (params: FilmsParamsType = {}, { getState }) => {
+    const { limit = FILMS_LIMIT, page = 1 } = params
+    const ordering = (getState() as RootState).films.ordering
 
-    if (!response) {
-      throw new Error('Ошибка загрузки фильмов')
-    }
+    const data = await getFilms({ ...params, page, limit, ordering })
 
-    const movies: TmdbMovieCard[] = response.results.map(movie => ({
-      id: movie.id,
-      title: movie.title,
-      vote_average: Number(movie.vote_average.toFixed(1)),
-      release_date: movie.release_date,
-      poster_path: movie.poster_path,
-      url: `/movie/${movie.id}`
-    }))
-
-    return {
-      count: response.total_results,
-      results: movies
-    }
+    return data
   }
 )
 
-const initialState: TmdbMoviesStateType & { favorites: number[] } = {
+export const searchFilm = createAsyncThunk(
+  'films/searchFilms',
+  async (params: FilmsParamsType = {}, { getState }) => {
+    const ordering = (getState() as RootState).films.ordering
+    const data = await searchFilms({ ...params, ordering })
+    return data
+  }
+)
+
+const initialState: FilmsStateType = {
   list: null,
-  favorites: [],
+  favorites: JSON.parse(localStorage.getItem('favoriteFilms') || '[]'),
   error: null,
   isLoading: false,
-  limit: 10,
-  total: 0
+  limit: FILMS_LIMIT,
+  total: 0,
+  ordering: 'date',
 }
 
-const moviesSlice = createSlice({
-  name: 'movies',
+export const filmsSlice = createSlice({
+  name: 'films',
   initialState,
   reducers: {
-    clearMovies(state) {
-      state.list = []
-      state.total = 0
-    },
-    addFavorite(state, action: PayloadAction<number>) {
-      if (!state.favorites.includes(action.payload)) {
+    addFavorite(state, action: PayloadAction<TmdbFilmCard>) {
+      if (!state.favorites.find(film => film.id === action.payload.id)) {
         state.favorites.push(action.payload)
-        localStorage.setItem(FAVORITES_KEY, JSON.stringify(state.favorites))
+        localStorage.setItem('favoriteFilms', JSON.stringify(state.favorites))
       }
     },
     removeFavorite(state, action: PayloadAction<number>) {
-      state.favorites = state.favorites.filter(id => id !== action.payload)
-      localStorage.setItem(FAVORITES_KEY, JSON.stringify(state.favorites))
+      state.favorites = state.favorites.filter(film => film.id !== action.payload)
+      localStorage.setItem('favoriteFilms', JSON.stringify(state.favorites))
     },
-    clearFavorites(state) {
-      state.favorites = []
-      localStorage.setItem(FAVORITES_KEY, '[]')
-    },
-    setFavorites(state, action: PayloadAction<number[]>) {
-      state.favorites = action.payload
-    }
   },
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
-      .addCase(fetchMovies.pending, (state) => {
+      .addCase(fetchFilms.pending, state => {
         state.isLoading = true
-        state.error = null
       })
-      .addCase(fetchMovies.fulfilled, (state, action) => {
+      .addCase(fetchFilms.rejected, (state, action) => {
+        state.error = action.error?.message || null
+        state.isLoading = false
+      })
+      .addCase(fetchFilms.fulfilled, (state, action: PayloadAction<TmdbFilmsResponse>) => {
         state.list = action.payload.results
-        state.total = action.payload.count
+        state.total = action.payload.total_results
         state.isLoading = false
       })
-      .addCase(fetchMovies.rejected, (state, action) => {
-        state.error = action.error.message || 'Ошибка'
+      .addCase(searchFilm.pending, state => {
+        state.isLoading = true
+      })
+      .addCase(searchFilm.rejected, (state, action) => {
+        state.error = action.error?.message || null
         state.isLoading = false
       })
-  }
+      .addCase(searchFilm.fulfilled, (state, action: PayloadAction<TmdbFilmsResponse>) => {
+        state.list = action.payload.results
+        state.total = action.payload.total_results
+        state.isLoading = false
+      })
+  },
 })
 
-export const moviesReducer = moviesSlice.reducer
-export const { clearMovies, addFavorite, removeFavorite, clearFavorites, setFavorites } = moviesSlice.actions
+export const { addFavorite, removeFavorite } = filmsSlice.actions
+export const filmsReducer = filmsSlice.reducer

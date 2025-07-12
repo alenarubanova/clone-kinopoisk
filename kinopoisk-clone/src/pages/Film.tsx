@@ -1,15 +1,18 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import { useAppDispatch, useAppSelector } from '../redux/store'
 import { fetchFilm } from '../redux/film-slice'
 import { ContainerFilm } from '../components/container-film/container-film'
 import { Loader } from '../components/loader/loader'
-import style from '../styles/main.module.css'
 import { Tabs } from '../components/tabs/tabs'
+import { Recommendations } from '../components/recommendations/recommendations'
+import { locales } from '../config/locales'
+import style from '../styles/main.module.css'
 
 export function Film(): React.ReactElement {
   const { id } = useParams<{ id: string }>()
   const dispatch = useAppDispatch()
+  const lang = useAppSelector(state => state.lang.lang)
   const { data, isLoading, error } = useAppSelector(state => state.film)
 
   useEffect(() => {
@@ -22,7 +25,7 @@ export function Film(): React.ReactElement {
   }
 
   if (error || !data) {
-    return <div>Фильм не найден</div>
+    return <div>Film not found</div>
   }
 
   return (
@@ -45,27 +48,28 @@ export function Film(): React.ReactElement {
           </div>
           <p className={style.overview}>{data.overview}</p>
           <p className={style.desc}>
-            <span className={style.label}>Year:</span>
+            <span className={style.label}>{locales[lang].pageFilm.year}:</span>
             <span className={style.value}>{data.release_date}</span>
           </p>
           <p className={style.desc}>
-            <span className={style.label}>Country:</span>
+            <span className={style.label}>{locales[lang].pageFilm.country}:</span>
             <span className={style.value}>{Array.isArray(data.production_countries) ? data.production_countries.map(c => c.name).join(', ') : 'Нет данных'}</span>
           </p>
           <p className={style.desc}>
-            <span className={style.label}>Age Rating:</span>
-            <span className={style.value}>{data.adult ? '18+' : 'Нет'}</span>
+            <span className={style.label}>{locales[lang].pageFilm.adult}:</span>
+            <span className={style.value}>{data.adult ? '18+' : '-'}</span>
           </p>
           <p className={style.desc}>
-            <span className={style.label}>Popularity:</span>
+            <span className={style.label}>{locales[lang].pageFilm.popularity}:</span>
             <span className={style.value}>{data.popularity}</span>
           </p>
           <p className={style.desc}>
-            <span className={style.label}>Language:</span>
+            <span className={style.label}>{locales[lang].pageFilm.language}:</span>
             <span className={style.value}>{data.original_language}</span>
           </p>
         </div>
       </div>
+      <Recommendations />
     </ContainerFilm>
   )
 }

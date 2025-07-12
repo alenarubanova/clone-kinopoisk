@@ -1,7 +1,7 @@
 import React from 'react'
 import { ContainerCards } from '../components/container-cards/container-cards'
 
-export function Filmes(): React.ReactElement {
+export function Films(): React.ReactElement {
   return (
     <>
       <ContainerCards />

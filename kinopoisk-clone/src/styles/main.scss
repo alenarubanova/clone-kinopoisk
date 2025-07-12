@@ -3,12 +3,60 @@
 :root {
   --color-background-night: #000000;
   --color-background-day: #fff;
+  --color-background-grey: #232323;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-text-day: #000000;
+  --color-text-night: #ffffff;
+  --color-grey: #323537;
+  --input-color-day: #000;
+  --input-color-night: #fff;
+  --placeholder-color-day: #000000;
+  --placeholder-color-night: #ccc;
 }
 
 body.day-theme {
   background-color: var(--color-background-day);
+  color: var(--color-text-day);
+  --input-background: var(--color-background-day);
+  --input-border: var(--color-black);
+  --input-text: var(--color-text-day);
+  --input-color: var(--input-color-day);
+  --placeholder-color: var(--placeholder-color-day);
+
 }
 
 body.night-theme {
   background-color: var(--color-background-night);
+  color: var(--color-text-night);
+  --input-background: var(--color-background-grey);
+  --input-border: var(--color-black);
+  --input-text: var(--color-text-night);
+  --input-color: var(--input-color-night);
+  --placeholder-color: var(--placeholder-color-night);
+}
+
+body {
+  background-color: var(--color-background-day);
+  color: var(--color-text-day);
+}
+
+input,
+textarea,
+select {
+  background: var(--input-background);
+  color: var(--input-color);
+  border: 1px solid var(--input-border);
+}
+
+body.night-theme input,
+body.night-theme textarea,
+body.night-theme select {
+  color: var(--input-color) !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--placeholder-color) !important;
+  opacity: 1;
 }
