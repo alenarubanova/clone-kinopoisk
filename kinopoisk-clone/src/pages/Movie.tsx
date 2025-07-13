@@ -1,25 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import { useAppDispatch, useAppSelector } from '../redux/store'
-import { fetchFilm } from '../redux/film-slice'
-import { ContainerFilm } from '../components/container-film/container-film'
+import { fetchMovie } from '../redux/movie-slice'
+import { ContainerMovie } from '../components/container-movie/container-movie'
 import { Loader } from '../components/loader/loader'
 import { Tabs } from '../components/tabs/tabs'
 import { Recommendations } from '../components/recommendations/recommendations'
 import { locales } from '../config/locales'
 import style from '../styles/main.module.css'
 
-export function Film(): React.ReactElement {
+export function Movie(): React.ReactElement {
 
   const { id } = useParams<{ id: string }>()
   const dispatch = useAppDispatch()
-  const { data, isLoading, error } = useAppSelector(state => state.film)
+  const { data, isLoading, error } = useAppSelector(state => state.movie)
 
   const lang = useAppSelector(state => state.lang.lang)
 
   useEffect(() => {
     if (!id) return
-    dispatch(fetchFilm(Number(id)))
+    dispatch(fetchMovie(Number(id)))
   }, [id])
 
   if (isLoading) {
@@ -27,11 +27,11 @@ export function Film(): React.ReactElement {
   }
 
   if (error || !data) {
-    return <div>Film not found</div>
+    return <div>Movie not found</div>
   }
 
   return (
-    <ContainerFilm>
+    <ContainerMovie>
       <Tabs 
         tabs={[
           { label: 'Main', path: '/' },
@@ -45,33 +45,33 @@ export function Film(): React.ReactElement {
           <p className={style.genres}>{Array.isArray(data.genres) ? data.genres.map(genre => genre.name).join(' · ') : 'No data'}</p>
           <h2 className={style.title}>{data.title}</h2>
           <div className={style.info}>
-            <span className={style.rating}>{data.vote_average}</span>
+            <span className={style.rating}>{typeof data.vote_average === 'number' ? data.vote_average.toFixed(1) : data.vote_average}</span>
             <span className={style.runtime}>{data.runtime}</span>
           </div>
           <p className={style.overview}>{data.overview}</p>
           <p className={style.desc}>
-            <span className={style.label}>{locales[lang].pageFilm.year}:</span>
+            <span className={style.label}>{locales[lang].pageMovie.year}:</span>
             <span className={style.value}>{data.release_date}</span>
           </p>
           <p className={style.desc}>
-            <span className={style.label}>{locales[lang].pageFilm.country}:</span>
-            <span className={style.value}>{Array.isArray(data.production_countries) ? data.production_countries.map(c => c.name).join(', ') : 'Нет данных'}</span>
+            <span className={style.label}>{locales[lang].pageMovie.country}:</span>
+            <span className={style.value}>{Array.isArray(data.production_countries) ? data.production_countries.map(c => c.name).join(', ') : 'No data'}</span>
           </p>
           <p className={style.desc}>
-            <span className={style.label}>{locales[lang].pageFilm.adult}:</span>
+            <span className={style.label}>{locales[lang].pageMovie.adult}:</span>
             <span className={style.value}>{data.adult ? '18+' : '-'}</span>
           </p>
           <p className={style.desc}>
-            <span className={style.label}>{locales[lang].pageFilm.popularity}:</span>
+            <span className={style.label}>{locales[lang].pageMovie.popularity}:</span>
             <span className={style.value}>{data.popularity}</span>
           </p>
           <p className={style.desc}>
-            <span className={style.label}>{locales[lang].pageFilm.language}:</span>
+            <span className={style.label}>{locales[lang].pageMovie.language}:</span>
             <span className={style.value}>{data.original_language}</span>
           </p>
         </div>
       </div>
       <Recommendations />
-    </ContainerFilm>
+    </ContainerMovie>
   )
 }

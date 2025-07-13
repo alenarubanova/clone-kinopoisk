@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import { Card } from '../film-card/film-card'
+import { Card } from '../movie-card/movie-card'
 import { Loader } from '../loader/loader'
 import { useAppDispatch, useAppSelector } from '../../redux/store'
-import { fetchFilms } from '../../redux/films-slice'
-import { addFavorite, removeFavorite } from '../../redux/films-slice'
-import type { TmdbFilmCard } from '../../types'
+import { fetchMovies } from '../../redux/movies-slice'
+import { addFavorite, removeFavorite } from '../../redux/movies-slice'
+import type { TmdbMovieCard } from '../../types'
 import style from './container-trends.module.css'
 
 export function ContainerTrends(): React.ReactElement {
   const dispatch = useAppDispatch()
   
-  const { list, isLoading, favorites } = useAppSelector(state => state.films)
-  const [trends, setTrends] = useState<TmdbFilmCard[]>([])
+  const { list, isLoading, favorites } = useAppSelector(state => state.movies)
+  const [trends, setTrends] = useState<TmdbMovieCard[]>([])
 
   useEffect(() => {
-    dispatch(fetchFilms({ page: 1 }))
+    dispatch(fetchMovies({ page: 1 }))
   }, [dispatch])
 
   useEffect(() => {
@@ -34,15 +34,15 @@ export function ContainerTrends(): React.ReactElement {
 
   return (
     <div className={style.container}>
-      {trends.map(film => {
-        const isFavorite = favorites.some(f => f.id === film.id)
+      {trends.map(movie => {
+        const isFavorite = favorites.some(f => f.id === movie.id)
         return (
           <Card
-            key={film.id}
-            {...film}
+            key={movie.id}
+            {...movie}
             isFavorite={isFavorite}
-            onAddToFavorites={() => dispatch(addFavorite(film))}
-            onRemoveFromFavorites={() => dispatch(removeFavorite(film.id))}
+            onAddToFavorites={() => dispatch(addFavorite(movie))}
+            onRemoveFromFavorites={() => dispatch(removeFavorite(movie.id))}
             showTrash={false}
           />
         )

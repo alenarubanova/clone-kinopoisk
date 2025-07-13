@@ -1,32 +1,32 @@
 import React, { useEffect } from 'react'
-import { Card } from '../film-card/film-card'
+import { Card } from '../movie-card/movie-card'
 import { Loader } from '../loader/loader'
 import { useAppDispatch, useAppSelector } from '../../redux/store'
-import { fetchFilms, addFavorite, removeFavorite } from '../../redux/films-slice'
+import { fetchMovies, addFavorite, removeFavorite } from '../../redux/movies-slice'
 import { buildSchemePagination } from '../../utils/buildPagination'
 import { useParams, NavLink } from 'react-router'
-import { FILMS_LIMIT, FILMS_MAX_LIMIT } from '../../config/constants'
+import { MOVIES_LIMIT, MOVIES_MAX_LIMIT } from '../../config/constants'
 import style from './container-cards.module.css'
 
 export function ContainerCards(): React.ReactElement {
 
   const { currentPage = '1', query } = useParams<{ currentPage?: string; query?: string }>()
   const dispatch = useAppDispatch()
-  const { list, isLoading, favorites, total } = useAppSelector(state => state.films)
+  const { list, isLoading, favorites, total } = useAppSelector(state => state.movies)
 
   useEffect(() => {
     const page = Number(currentPage) || 1
-    dispatch(fetchFilms({
+    dispatch(fetchMovies({
       page,
       search: query || undefined,
-      limit: FILMS_LIMIT
+      limit: MOVIES_LIMIT
     }))
   }, [dispatch, currentPage, query])
 
   function renderPagination() {
     const page = Number(currentPage) || 1
-    const maxPages = Math.ceil(FILMS_MAX_LIMIT / FILMS_LIMIT)
-    const totalPages = Math.ceil(total / FILMS_LIMIT)
+    const maxPages = Math.ceil(MOVIES_MAX_LIMIT / MOVIES_LIMIT)
+    const totalPages = Math.ceil(total / MOVIES_LIMIT)
     const pageCount = Math.min(totalPages, maxPages)
     if (pageCount <= 1) return null
 
@@ -46,7 +46,7 @@ export function ContainerCards(): React.ReactElement {
               ) : (
                 <NavLink
                   className={style.pageLink}
-                  to={query ? `/films/search/${query}/${item}` : `/films/all/${item}`}
+                  to={query ? `/movies/search/${query}/${item}` : `/movies/all/${item}`}
                 >
                   {item}
                 </NavLink>
@@ -63,21 +63,21 @@ export function ContainerCards(): React.ReactElement {
   }
 
   if (!list || list.length === 0) {
-    return <div> No films </div>
+    return <div> No movies </div>
   }
 
   return (
     <div className={style.container}>
       {renderPagination()}
-      {list.map(film => {
-        const isFavorite = favorites.some(f => f.id === film.id)
+      {list.map(movie => {
+        const isFavorite = favorites.some(m => m.id === movie.id)
         return (
           <Card
-            key={film.id}
-            {...film}
+            key={movie.id}
+            {...movie}
             isFavorite={isFavorite}
-            onAddToFavorites={() => dispatch(addFavorite(film))}
-            onRemoveFromFavorites={() => dispatch(removeFavorite(film.id))}
+            onAddToFavorites={() => dispatch(addFavorite(movie))}
+            onRemoveFromFavorites={() => dispatch(removeFavorite(movie.id))}
             showTrash={false}
           />
         )

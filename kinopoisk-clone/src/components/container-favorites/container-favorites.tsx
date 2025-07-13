@@ -1,13 +1,13 @@
 import React from 'react'
-import style from './container-favorites.module.css'
 import EmptyImage from '../../assets/no-images/day.png'
-import { Card } from '../film-card/film-card'
+import { Card } from '../movie-card/movie-card'
 import { useAppSelector } from '../../redux/store'
 import { useAppDispatch } from '../../redux/store'
-import { removeFavorite } from '../../redux/films-slice'
+import { removeFavorite } from '../../redux/movies-slice'
+import style from './container-favorites.module.css'
 
 export function ContainerFavorites(): React.ReactElement {
-  const favorites = useAppSelector(state => state.films.favorites)
+  const favorites = useAppSelector(state => state.movies.favorites)
   const dispatch = useAppDispatch()
   const isEmpty = !favorites || favorites.length === 0
 
@@ -19,12 +19,12 @@ export function ContainerFavorites(): React.ReactElement {
             <div className={style.emptyText}>Empty state text</div>
           </div>
         ) : (
-          favorites.map(film => (
+          favorites.map(movie => (
             <Card
-              key={film.id}
-              {...film}
+              key={movie.id}
+              {...movie}
               showTrash={true}
-              onRemoveFromFavorites={() => dispatch(removeFavorite(film.id))}
+              onRemoveFromFavorites={() => dispatch(removeFavorite(movie.id))}
               isFavorite={true}
             />
           ))

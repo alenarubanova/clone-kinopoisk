@@ -16,7 +16,7 @@ export const en = {
   trends: {
     title: 'Trends This Week',
   },
-  pageFilm: {
+  pageMovie: {
     year: 'Year',
     country: 'Country',
     adult: 'Age Rating',

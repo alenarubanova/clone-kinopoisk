@@ -1,8 +1,7 @@
 import React from 'react'
+import { type InputType } from '../../types'
 
-type InputType = 'text' | 'email' | 'password' | 'checkbox' | 'number'
-
-interface InputProps {
+export interface InputProps {
   type: InputType
   label?: string
   id?: string

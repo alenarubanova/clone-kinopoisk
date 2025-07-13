@@ -5,23 +5,23 @@ export type LangStateType = {
   lang: LangType
 }
 
-// Films
-export type TmdbFilmsStateType = {
-  list: TmdbFilmCard[] | null
+// Movies
+export type TmdbMoviesStateType = {
+  list: TmdbMovieCard[] | null
   error: string | null
   isLoading: boolean
   limit: number
   total: number
 }
 
-export interface TmdbFilmsResponse {
+export interface TmdbMoviesResponse {
   page: number
-  results: TmdbFilmCard[]
+  results: TmdbMovieCard[]
   total_pages: number
   total_results: number
 }
 
-export interface TmdbFilmCard {
+export interface TmdbMovieCard {
   id: number
   title: string
   vote_average: number
@@ -32,7 +32,7 @@ export interface TmdbFilmCard {
   popularity?: number | null
 }
 
-export interface TmdbFilmDetails {
+export interface TmdbMovieDetails {
   id: number
   title: string
   poster_path: string | null
@@ -47,22 +47,22 @@ export interface TmdbFilmDetails {
   original_language: string
 }
 
-export type FilmsParamsType = {
+export type MoviesParamsType = {
   page?: number
   search?: string
   limit?: number
   ordering?: string
 }
 
-export interface FilmStateType {
+export interface MovieStateType {
   data: TmdbMovieDetails | null
   isLoading: boolean
   error: string | null
 }
 
-export type FilmsStateType = {
-  list: TmdbFilmCard[] | null
-  favorites: TmdbFilmCard[]
+export type MoviesStateType = {
+  list: TmdbMovieCard[] | null
+  favorites: TmdbMovieCard[]
   error: string | null
   isLoading: boolean
   limit: number
@@ -91,3 +91,6 @@ export interface TabsState {
 
 // Theme
 export type ThemeType = 'day' | 'night'
+
+// Input 
+export type InputType = 'text' | 'email' | 'password' | 'checkbox' | 'number'

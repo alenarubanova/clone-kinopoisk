@@ -1,11 +1,11 @@
 import axios from 'axios'
-import type { TmdbFilmsResponse, TmdbFilmDetails, FilmsParamsType } from '../types'
-import { baseUrl, apiKey, filmsEndpoint, searchEndpoint } from '../config/api'
+import type { TmdbMoviesResponse, TmdbMovieDetails, MoviesParamsType } from '../types'
+import { baseUrl, apiKey, moviesEndpoint, searchEndpoint } from '../config/api'
 
-export async function getFilms(params: FilmsParamsType = {}): Promise<TmdbFilmsResponse | void> {
+export async function getMovies(params: MoviesParamsType = {}): Promise<TmdbMoviesResponse | void> {
   try {
     const { limit, ...rest } = params
-    const response = await axios.get(`${baseUrl}${filmsEndpoint}`, {
+    const response = await axios.get(`${baseUrl}${moviesEndpoint}`, {
       params: { api_key: apiKey, ...rest }
     })
     return response.data
@@ -14,7 +14,7 @@ export async function getFilms(params: FilmsParamsType = {}): Promise<TmdbFilmsR
   }
 }
 
-export async function searchFilms(params: FilmsParamsType = {}): Promise<TmdbFilmsResponse | void> {
+export async function searchMovies(params: MoviesParamsType = {}): Promise<TmdbMoviesResponse | void> {
   try {
     const { search, limit, ...rest } = params
     const response = await axios.get(`${baseUrl}${searchEndpoint}`, {
@@ -26,7 +26,7 @@ export async function searchFilms(params: FilmsParamsType = {}): Promise<TmdbFil
   }
 }
 
-export async function requestFilm(id: number): Promise<TmdbFilmDetails | void> {
+export async function requestMovie(id: number): Promise<TmdbMovieDetails | void> {
   try {
     const response = await axios.get(`${baseUrl}/movie/${id}`, {
       params: { api_key: apiKey }
