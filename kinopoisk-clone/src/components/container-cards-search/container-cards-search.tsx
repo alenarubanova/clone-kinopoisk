@@ -3,11 +3,11 @@ import { Loader } from '../loader/loader'
 import type { TmdbMovieCard } from '../../types'
 import { useAppSelector, useAppDispatch } from '../../redux/store'
 import { addFavorite, removeFavorite } from '../../redux/movies-slice'
-import style from './container-cards-search.module.css'
 import { useNavigate } from 'react-router'
 import { MOVIES_LIMIT, MOVIES_MAX_LIMIT } from '../../config/constants'
 import { buildSchemePagination } from '../../utils/buildPagination'
 import { NavLink } from 'react-router'
+import style from './container-cards-search.module.css'
 
 interface ContainerCardsSearchProps {
   movies: TmdbMovieCard[]

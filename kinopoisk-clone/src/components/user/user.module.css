@@ -10,16 +10,12 @@
   font: inherit;
   color: inherit;
   background-color: transparent;
-
   cursor: pointer;
-
   width: auto;
   height: auto;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   transition: transform 0.2s ease-in-out;
 }
 
@@ -33,7 +29,6 @@
   font-weight: 700;
   line-height: 1.5rem;
   color: var(--color-white);
-
   padding: 1rem;
   background-color: var(--color-accent);
   border-radius: 0.625rem;

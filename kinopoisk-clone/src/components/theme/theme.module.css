@@ -4,16 +4,12 @@
   font: inherit;
   color: inherit;
   background-color: transparent;
-
   cursor: pointer;
-
   width: auto;
   height: auto;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   transition: transform 0.3s ease-in-out;
 }
 

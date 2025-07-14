@@ -6,7 +6,6 @@ import { locales } from '../../config/locales'
 import style from './search.module.css'
 
 export function SearchBar(): React.ReactElement {
-
   const navigate = useNavigate()
   const lang = useAppSelector(state => state.lang.lang)
   const [searchQuery, setSearchQuery] = useState('')

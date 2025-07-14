@@ -3,8 +3,6 @@ import { ContainerFavorites } from '../components/container-favorites/container-
 
 export function Favorites(): React.ReactElement {
   return (
-    <>
-      <ContainerFavorites />
-    </>
+    <ContainerFavorites />
   )
 }

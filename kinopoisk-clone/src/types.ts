@@ -70,7 +70,6 @@ export type MoviesStateType = {
   ordering: string
 }
 
-
 // Film details
 export interface TmdbGenre {
   id: number

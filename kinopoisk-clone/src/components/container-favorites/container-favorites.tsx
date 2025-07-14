@@ -1,5 +1,5 @@
 import React from 'react'
-import EmptyImage from '../../assets/no-images/day.png'
+import EmptyImage from '../../assets/image-placegolder/placegolder.png'
 import { Card } from '../movie-card/movie-card'
 import { useAppSelector } from '../../redux/store'
 import { useAppDispatch } from '../../redux/store'

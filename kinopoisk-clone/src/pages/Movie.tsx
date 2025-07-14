@@ -10,7 +10,6 @@ import { locales } from '../config/locales'
 import style from '../styles/main.module.css'
 
 export function Movie(): React.ReactElement {
-
   const { id } = useParams<{ id: string }>()
   const dispatch = useAppDispatch()
   const { data, isLoading, error } = useAppSelector(state => state.movie)
